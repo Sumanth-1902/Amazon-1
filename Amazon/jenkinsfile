@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    stages {
+        stage(clone){
+            steps {
+                git 'https://github.com/Sumanth-1902/Amazon-1.git'
+                }
+        }
+        stage(build){
+            steps {
+                sh 'mvn -f Amazon/ clean install -DskipTest'
+            }
+        }
+        stage(test){
+            steps {
+                sh 'mvn -f Amazon/ test'
+            }
+            post {
+                always {
+                    junit 'Amazon/Amazon-Core/target/surefire-reports/*.xml'
+                    archiveArtifacts 'Amazon/Amazon-Web/target/*.war'
+                }
+            }
+        }
+        stage(run){
+            steps {
+                sh './Amazon/scripts/run.sh'
+            }
+        }
+        stage(tom){
+            steps {
+                sh './Amazon/scripts/tom.sh'
+            }
+        }
+        stage(apptest){
+            steps {
+                sh 'wget http://192.168.75.128:8088/Amazon/'
+            }
+        }
+        
+        
+    }
+}
