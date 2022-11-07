@@ -22,22 +22,5 @@ maven "m1"
                 }
             }
         }
-        stage(run){
-            steps {
-                sh './Amazon/scripts/run.sh'
-            }
-        }
-        stage(tom){
-            steps {
-                sh './Amazon/scripts/tom.sh'
-            }
-        }
-        stage(apptest){
-            steps {
-                sh 'wget http://192.168.75.128:8088/Amazon/'
-            }
-        }
-        
-        
     }
 }
