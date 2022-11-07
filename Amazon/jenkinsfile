@@ -1,11 +1,11 @@
 pipeline {
-    agent any
+    agent {
+    label "slave"
+    }
+    tools {
+maven "m1"
+}
     stages {
-        stage(clone){
-            steps {
-                git 'https://github.com/Sumanth-1902/Amazon-1.git'
-                }
-        }
         stage(build){
             steps {
                 sh 'mvn -f Amazon/ clean install -DskipTest'
